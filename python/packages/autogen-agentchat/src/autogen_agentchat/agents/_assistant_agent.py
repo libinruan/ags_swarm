@@ -978,11 +978,14 @@ class AssistantAgent(BaseChatAgent, Component[AssistantAgentConfig]):
                 target_name = handoff.target.lower()
                 if target_name in last_line.lower():
                     from ..messages import HandoffMessage
-                    yield Response(chat_message=HandoffMessage(
-                        source=self.name,
-                        target=handoff.target,
-                        content=model_result.content,
-                    ))
+
+                    yield Response(
+                        chat_message=HandoffMessage(
+                            source=self.name,
+                            target=handoff.target,
+                            content=model_result.content,
+                        )
+                    )
                     return
 
         # --- NEW: If the model produced a hidden "thought," yield it as an event ---
